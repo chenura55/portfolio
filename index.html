@@ -43,7 +43,7 @@ nav {
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
-  padding: 0 var(--side); padding-top: 80px;
+  padding: 120px var(--side) 60px;
   background: var(--bg); position: relative; overflow: hidden;
 }
 .hero::before {
@@ -81,11 +81,12 @@ nav {
   text-transform: uppercase; letter-spacing: 1px; margin-bottom: 28px;
   background: rgba(245,243,239,0.8);
   backdrop-filter: blur(4px);
+  text-align: center;
 }
 .hero-title {
   font-family: 'Unbounded', sans-serif;
-  font-size: clamp(52px, 9vw, 110px);
-  font-weight: 900; line-height: .85;
+  font-size: clamp(38px, 8.5vw, 110px);
+  font-weight: 900; line-height: 0.95;
   letter-spacing: -0.04em; text-transform: uppercase;
 }
 .hero-accent { color: var(--accent); }
@@ -106,9 +107,9 @@ nav {
 /* ── SECTION COMMONS ── */
 .section-title {
   font-family: 'Unbounded', sans-serif;
-  font-size: clamp(40px, 6vw, 80px);
+  font-size: clamp(36px, 6vw, 80px);
   font-weight: 900; text-transform: uppercase;
-  line-height: .88; letter-spacing: -0.03em;
+  line-height: .95; letter-spacing: -0.03em;
   padding-bottom: 40px;
 }
 .highlight { color: var(--accent); }
@@ -166,7 +167,7 @@ nav {
 /* ── PROCESS ── */
 .process-section { padding: 160px var(--side); background: var(--bg); }
 .process-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; }
-.process-sticky h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 5vw, 72px); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -0.03em; position: sticky; top: 140px; }
+.process-sticky h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(34px, 5vw, 72px); font-weight: 900; text-transform: uppercase; line-height: .95; letter-spacing: -0.03em; position: sticky; top: 140px; }
 .process-list { display: flex; flex-direction: column; gap: 32px; }
 .process-card { background: var(--surface); border: 1px solid var(--border); padding: 48px; border-radius: 28px; opacity: .25; transform: translateY(40px) scale(.95); }
 .process-num { font-size: 11px; color: var(--accent); font-weight: 900; margin-bottom: 16px; display: block; text-transform: uppercase; letter-spacing: 1px; }
@@ -175,7 +176,7 @@ nav {
 
 /* ── CONNECT ── */
 .connect-section { padding: 120px var(--side); background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
-.connect-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 6vw, 80px); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -0.03em; margin-bottom: 48px; }
+.connect-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 6vw, 80px); font-weight: 900; text-transform: uppercase; line-height: .95; letter-spacing: -0.03em; margin-bottom: 48px; }
 .social-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .social-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 100px; background: var(--bg); color: var(--primary); text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; border: 1.5px solid var(--border); transition: .3s; }
 .social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
@@ -184,7 +185,7 @@ nav {
 /* ── CONTACT ── */
 .contact-section { min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border-top: 1px solid var(--border); padding: 0 var(--side); }
 .contact-left { display: flex; flex-direction: column; justify-content: center; }
-.contact-left h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(40px, 6vw, 90px); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -0.03em; }
+.contact-left h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(38px, 6vw, 90px); font-weight: 900; text-transform: uppercase; line-height: .95; letter-spacing: -0.03em; }
 .contact-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 16px; }
 .contact-right p { color: var(--gray); font-size: 1rem; max-width: 360px; text-align: right; margin-bottom: 8px; }
 .action-btn { width: 100%; max-width: 360px; padding: 24px 28px; border: 1.5px solid var(--border); border-radius: 16px; display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 13px; transition: .3s; cursor: pointer; background: var(--surface); font-family: 'Inter', sans-serif; }
@@ -206,8 +207,8 @@ footer { padding: 36px var(--side); text-align: center; border-top: 1px solid va
 .modal-overlay.open { display: flex; }
 
 .modal-box { 
-  position: relative; width: 100%; height: 100vh; /* Full screen height */
-  background: #f4f2ee; overflow: hidden; /* Prevent box from scrolling itself */
+  position: relative; width: 100%; height: 100vh;
+  background: #f4f2ee; overflow: hidden;
   display: flex; flex-direction: column;
 }
 
@@ -222,39 +223,66 @@ footer { padding: 36px var(--side); text-align: center; border-top: 1px solid va
 .modal-close { width: 36px; height: 36px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; color: var(--primary); transition: .2s; }
 .modal-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* This is the area that scrolls */
 .single-img-area { 
   flex-grow: 1;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
   width: 100%; background: #f4f2ee;
-  padding: 40px 0; /* Add some padding at top and bottom of image */
-  display: flex; justify-content: center; align-items: flex-start; /* Start from top */
+  padding: 40px 0;
+  display: flex; justify-content: center; align-items: flex-start;
 }
 
 .single-img-area img { 
-  width: 100%; /* Fit width of container */
-  max-width: 100%; /* Ensure it doesn't overflow horizontally */
-  height: auto; /* Maintain aspect ratio, let height grow */
+  width: 100%;
+  max-width: 100%;
+  height: auto;
   display: block;
 }
 
-/* ── RESPONSIVE ── */
+/* ── RESPONSIVE MEDIA QUERIES ── */
+@media (max-width: 1024px) {
+  nav { padding: 14px var(--side); }
+  .nav-links { gap: 24px; }
+}
+
 @media (max-width: 900px) {
   .project-row { grid-template-columns: 1fr; min-height: auto; }
   .project-row:nth-child(even) { direction: ltr; }
-  .proj-img-panel { min-height: 280px; }
-  .proj-content-panel { padding: 36px 32px; }
-  .process-container { grid-template-columns: 1fr; }
-  .contact-section { grid-template-columns: 1fr; padding: 80px var(--side); gap: 48px; }
+  .project-row:nth-child(even) > * { direction: ltr; }
+  .proj-img-panel { min-height: 320px; }
+  .proj-content-panel { padding: 40px 32px; }
+  
+  .project-card { height: 65vh; border-radius: 24px; }
+  .project-meta { padding: 32px; flex-direction: column; align-items: flex-start; gap: 20px; }
+  
+  .process-container { grid-template-columns: 1fr; gap: 48px; }
+  .process-sticky h2 { position: relative; top: 0; }
+  .process-card { padding: 36px; border-radius: 20px; }
+
+  .contact-section { grid-template-columns: 1fr; padding: 80px var(--side); gap: 40px; min-height: auto; }
   .contact-right { align-items: flex-start; }
   .contact-right p { text-align: left; }
   .action-btn, .contact-tray { max-width: 100%; }
-  .project-meta { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
 }
-@media (max-width: 600px) {
-  .hero-btns { flex-direction: column; align-items: center; }
-  .nav-links { gap: 20px; }
-  .proj-content-panel { padding: 28px 24px; }
+
+@media (max-width: 640px) {
+  nav { padding: 16px var(--side); flex-direction: column; gap: 12px; text-align: center; position: absolute; }
+  .nav-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  
+  .hero { padding-top: 140px; min-height: auto; }
+  .hero-btns { width: 100%; flex-direction: column; gap: 12px; }
+  .btn-main { width: 100%; justify-content: center; }
+  
+  .proj-img-panel { min-height: 240px; }
+  .proj-content-panel { padding: 32px 20px; }
+  .proj-actions { flex-direction: column; gap: 10px; }
+  .proj-action-btn { width: 100%; justify-content: center; }
+  
+  .project-wrapper { height: 60vh; }
+  .project-card { height: 50vh; border-radius: 16px; }
+  .project-meta { padding: 20px; }
+  
+  .social-row { flex-direction: column; gap: 10px; width: 100%; }
+  .social-btn { width: 100%; justify-content: center; }
 }
 </style>
 </head>
@@ -307,7 +335,6 @@ footer { padding: 36px var(--side); text-align: center; border-top: 1px solid va
         <span class="proj-tag-chip">Prototyping</span>
       </div>
       <div class="proj-actions">
-        <!-- Make sure data-image points to your large full home page image -->
         <button class="proj-action-btn btn-view-ui btn-show-ui"
           data-name="WeddingSync — Wedding Planning App"
           data-image="./Home1.jpg">
@@ -534,7 +561,6 @@ footer { padding: 36px var(--side); text-align: center; border-top: 1px solid va
       <span class="modal-project-name" id="modalProjectName">Project</span>
       <button class="modal-close" id="closeImg">×</button>
     </div>
-    <!-- This container is now scrollable -->
     <div class="single-img-area" id="modalScrollArea">
       <img id="modalTargetImg" src="" alt="Design Presentation Interface Layout">
     </div>
@@ -594,20 +620,18 @@ footer { padding: 36px var(--side); text-align: center; border-top: 1px solid va
     nameEl.textContent = name;
     modalImg.src = imgSrc;
     modal.classList.add('open');
-    document.body.style.overflow = 'hidden'; // Prevent main page scrolling
-    if(scrollArea) scrollArea.scrollTop = 0; // Reset scroll position to top
+    document.body.style.overflow = 'hidden'; 
+    if(scrollArea) scrollArea.scrollTop = 0; 
   }
 
   function closeModal() {
     modal.classList.remove('open');
-    document.body.style.overflow = ''; // Re-enable main page scrolling
-    // Short delay to clean src so it doesn't 'flash' next time
+    document.body.style.overflow = ''; 
     setTimeout(() => { if(!modal.classList.contains('open')) modalImg.src = ''; }, 300);
   }
 
   document.getElementById('closeImg').onclick = closeModal;
   
-  // Close only if clicking the background, not the image itself
   modal.addEventListener('click', e => {
     if (e.target === scrollArea) { 
       closeModal(); 
@@ -620,7 +644,6 @@ footer { padding: 36px var(--side); text-align: center; border-top: 1px solid va
     }
   });
 
-  // Attach event listeners to all 'View Interface' buttons
   document.querySelectorAll('.btn-show-ui').forEach(btn => {
     btn.addEventListener('click', () => {
       const imageSrc = btn.dataset.image;
