@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chenura De Silva — UI/UX Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --bg: #f5f3ef;
+  --surface: #ffffff;
+  --primary: #111111;
+  --gray: #6b6b6b;
+  --accent: #e63900;
+  --border: rgba(0,0,0,0.09);
+  --side: 6%;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--primary); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.4; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%;
+  padding: 18px var(--side);
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 2000;
+  background: rgba(245,243,239,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 1rem; letter-spacing: -0.03em; text-transform: uppercase; }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a { text-decoration: none; color: var(--gray); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; transition: .3s; }
+.nav-links a:hover { color: var(--accent); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 0 var(--side); padding-top: 80px;
+  background: var(--bg); position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; 
+  position: absolute; 
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(230, 57, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(230, 57, 0, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at 50% 55%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 55%, black 40%, transparent 85%);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(230, 57, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+}
+.hero > * { position: relative; z-index: 10; }
+
+.tag-pill {
+  display: inline-block; padding: 7px 16px;
+  border: 1.5px solid var(--accent); color: var(--accent);
+  border-radius: 100px; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 28px;
+  background: rgba(245,243,239,0.8);
+  backdrop-filter: blur(4px);
+}
+.hero-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(52px, 9vw, 110px);
+  font-weight: 900; line-height: .85;
+  letter-spacing: -0.04em; text-transform: uppercase;
+}
+.hero-accent { color: var(--accent); }
+.hero-sub { color: var(--gray); font-size: 1rem; margin-top: 24px; max-width: 480px; }
+.hero-btns { display: flex; gap: 16px; margin-top: 36px; justify-content: center; flex-wrap: wrap; }
+.btn-main {
+  padding: 16px 32px; border-radius: 100px;
+  text-transform: uppercase; font-weight: 700; font-size: 13px;
+  cursor: pointer; transition: .3s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  border: none; font-family: 'Inter', sans-serif;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(230,57,0,.2); }
+.btn-secondary { background: var(--surface); color: var(--primary); border: 1.5px solid var(--border); }
+.btn-secondary:hover { background: var(--primary); color: #fff; }
+
+/* ── SECTION COMMONS ── */
+.section-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 900; text-transform: uppercase;
+  line-height: .88; letter-spacing: -0.03em;
+  padding-bottom: 40px;
+}
+.highlight { color: var(--accent); }
+
+/* ── LATEST PROJECTS ── */
+.latest-section { padding: 120px var(--side) 100px; background: var(--bg); }
+
+.project-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--surface);
+  margin-bottom: 28px;
+  transition: box-shadow .35s, transform .35s;
+  min-height: 380px;
+}
+.project-row:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,.09); }
+.project-row:nth-child(even) { direction: rtl; }
+.project-row:nth-child(even) > * { direction: ltr; }
+
+.proj-img-panel { position: relative; overflow: hidden; min-height: 380px; }
+.proj-img-panel img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.16,1,.3,1); display: block; }
+.project-row:hover .proj-img-panel img { transform: scale(1.05); }
+
+.proj-num-badge { position: absolute; top: 24px; left: 24px; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 900; color: #fff; letter-spacing: 2px; background: rgba(0,0,0,.35); backdrop-filter: blur(6px); padding: 6px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,.2); z-index: 2; }
+.proj-cat-badge { position: absolute; top: 24px; right: 24px; font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase; background: var(--accent); padding: 6px 14px; border-radius: 100px; z-index: 2; }
+
+.proj-content-panel { display: flex; flex-direction: column; justify-content: center; padding: 56px 64px; }
+.proj-year { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 14px; display: block; }
+.proj-content-panel h3 { font-family: 'Unbounded', sans-serif; font-size: clamp(20px, 2.4vw, 32px); font-weight: 900; text-transform: uppercase; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; }
+.proj-content-panel p { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 32px; max-width: 380px; }
+.proj-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.proj-tag-chip { padding: 5px 14px; border-radius: 100px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; background: var(--bg); color: var(--gray); border: 1.5px solid var(--border); }
+.proj-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.proj-action-btn { padding: 14px 26px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; cursor: pointer; border: none; font-family: 'Inter', sans-serif; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: .25s; }
+.btn-view-ui { background: var(--bg); color: var(--primary); border: 1.5px solid var(--border); }
+.btn-view-ui:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn-view-project { background: var(--accent); color: #fff; }
+.btn-view-project:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+/* ── BEHANCE ARCHIVE ── */
+.behance-section { padding: 120px var(--side) 40px; background: var(--surface); }
+.project-stack { padding: 0 var(--side) 80px; background: var(--surface); }
+.project-wrapper { height: 80vh; display: flex; align-items: center; justify-content: center; position: sticky; top: 10vh; margin-bottom: 5vh; }
+.project-card { width: 100%; height: 75vh; border-radius: 32px; overflow: hidden; background: var(--surface); position: relative; border: 1px solid var(--border); box-shadow: 0 4px 40px rgba(0,0,0,.06); }
+.project-img { width: 100%; height: 100%; object-fit: cover; transition: .8s; }
+.project-meta { position: absolute; bottom: 0; left: 0; width: 100%; padding: 48px; background: linear-gradient(to top, rgba(255,255,255,.98) 0%, rgba(255,255,255,.8) 70%, transparent 100%); display: flex; justify-content: space-between; align-items: flex-end; }
+.project-meta-text { display: flex; flex-direction: column; gap: 4px; }
+.project-meta h3 { font-family: 'Unbounded', sans-serif; font-size: clamp(20px, 2.5vw, 32px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; }
+.project-meta span { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+/* ── PROCESS ── */
+.process-section { padding: 160px var(--side); background: var(--bg); }
+.process-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; }
+.process-sticky h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 5vw, 72px); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -0.03em; position: sticky; top: 140px; }
+.process-list { display: flex; flex-direction: column; gap: 32px; }
+.process-card { background: var(--surface); border: 1px solid var(--border); padding: 48px; border-radius: 28px; opacity: .25; transform: translateY(40px) scale(.95); }
+.process-num { font-size: 11px; color: var(--accent); font-weight: 900; margin-bottom: 16px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+.process-card h4 { font-family: 'Unbounded', sans-serif; font-size: 1.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+.process-card p { color: var(--gray); font-size: 1rem; line-height: 1.6; }
+
+/* ── CONNECT ── */
+.connect-section { padding: 120px var(--side); background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
+.connect-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 6vw, 80px); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -0.03em; margin-bottom: 48px; }
+.social-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.social-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 100px; background: var(--bg); color: var(--primary); text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; border: 1.5px solid var(--border); transition: .3s; }
+.social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
+.social-btn i { font-size: 18px; }
+
+/* ── CONTACT ── */
+.contact-section { min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border-top: 1px solid var(--border); padding: 0 var(--side); }
+.contact-left { display: flex; flex-direction: column; justify-content: center; }
+.contact-left h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(40px, 6vw, 90px); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -0.03em; }
+.contact-right { display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 16px; }
+.contact-right p { color: var(--gray); font-size: 1rem; max-width: 360px; text-align: right; margin-bottom: 8px; }
+.action-btn { width: 100%; max-width: 360px; padding: 24px 28px; border: 1.5px solid var(--border); border-radius: 16px; display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 13px; transition: .3s; cursor: pointer; background: var(--surface); font-family: 'Inter', sans-serif; }
+.action-btn:hover { border-color: var(--accent); background: rgba(230,57,0,.04); }
+.action-btn.primary-btn { background: var(--accent); border-color: var(--accent); color: #fff; }
+.action-btn.primary-btn:hover { filter: brightness(.95); }
+.contact-tray { max-height: 0; overflow: hidden; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 8px; transition: .5s cubic-bezier(.16,1,.3,1); }
+.contact-tray.open { max-height: 200px; margin-top: -8px; }
+.tray-item { padding: 18px 22px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: var(--gray); font-weight: 600; font-size: 13px; transition: .3s; }
+.tray-item:hover { color: var(--primary); border-color: var(--accent); }
+
+footer { padding: 36px var(--side); text-align: center; border-top: 1px solid var(--border); color: var(--gray); font-size: 10px; text-transform: uppercase; letter-spacing: 2px; background: var(--surface); }
+
+/* ── FULL SCREEN SCROLLABLE MODAL ── */
+.modal-overlay { 
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.8); 
+  z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(8px); 
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box { 
+  position: relative; width: 100%; height: 100vh; /* Full screen height */
+  background: #f4f2ee; overflow: hidden; /* Prevent box from scrolling itself */
+  display: flex; flex-direction: column;
+}
+
+.modal-header {
+  position: sticky; top: 0; width: 100%;
+  padding: 16px var(--side);
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border); z-index: 20; flex-shrink: 0;
+}
+.modal-project-name { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; }
+.modal-close { width: 36px; height: 36px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; color: var(--primary); transition: .2s; }
+.modal-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* This is the area that scrolls */
+.single-img-area { 
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling */
+  width: 100%; background: #f4f2ee;
+  padding: 40px 0; /* Add some padding at top and bottom of image */
+  display: flex; justify-content: center; align-items: flex-start; /* Start from top */
+}
+
+.single-img-area img { 
+  width: 100%; /* Fit width of container */
+  max-width: 100%; /* Ensure it doesn't overflow horizontally */
+  height: auto; /* Maintain aspect ratio, let height grow */
+  display: block;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .project-row { grid-template-columns: 1fr; min-height: auto; }
+  .project-row:nth-child(even) { direction: ltr; }
+  .proj-img-panel { min-height: 280px; }
+  .proj-content-panel { padding: 36px 32px; }
+  .process-container { grid-template-columns: 1fr; }
+  .contact-section { grid-template-columns: 1fr; padding: 80px var(--side); gap: 48px; }
+  .contact-right { align-items: flex-start; }
+  .contact-right p { text-align: left; }
+  .action-btn, .contact-tray { max-width: 100%; }
+  .project-meta { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px; }
+}
+@media (max-width: 600px) {
+  .hero-btns { flex-direction: column; align-items: center; }
+  .nav-links { gap: 20px; }
+  .proj-content-panel { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="logo">Chenura</div>
+  <div class="nav-links">
+    <a href="#projects">Work</a>
+    <a href="#process">Process</a>
+    <a href="#behance">Archive</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ── HERO SECTION ── -->
+<section class="hero">
+  <span class="tag-pill">UI/UX Designer · Kalutara, Sri Lanka</span>
+  <h1 class="hero-title">
+    <span style="display:block;padding-bottom:8px">CRAFT MODERN</span>
+    <span style="display:block" class="hero-accent">DESIGNS</span>
+  </h1>
+  <p class="hero-sub">Creating intentional, pixel-perfect digital experiences that users love.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-main btn-primary">View Projects <i class="fa-solid fa-arrow-down"></i></a>
+    <a href="#contact" class="btn-main btn-secondary">Let's Talk <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- ── LATEST PROJECTS ── -->
+<section id="projects" class="latest-section">
+  <h2 class="section-title">LATEST <span class="highlight">PROJECTS</span></h2>
+
+  <!-- Project 1 -->
+  <div class="project-row" data-proj-anim>
+    <div class="proj-img-panel">
+      <img src="./image01.jpeg" alt="WeddingSync Platform">
+      <span class="proj-num-badge">01 / 05</span>
+      <span class="proj-cat-badge">Wedding · Web App</span>
+    </div>
+    <div class="proj-content-panel">
+      <span class="proj-year">2025</span>
+      <h3>WeddingSync — Wedding Planning App</h3>
+      <p>An elegant wedding planning platform with digital invitations and effortless guest management. Warm cream tones with editorial-scale typography.</p>
+      <div class="proj-tags">
+        <span class="proj-tag-chip">UI Design</span>
+        <span class="proj-tag-chip">Figma</span>
+        <span class="proj-tag-chip">Web App</span>
+        <span class="proj-tag-chip">Prototyping</span>
+      </div>
+      <div class="proj-actions">
+        <!-- Make sure data-image points to your large full home page image -->
+        <button class="proj-action-btn btn-view-ui btn-show-ui"
+          data-name="WeddingSync — Wedding Planning App"
+          data-image="./Home1.jpg">
+          <i class="fa-regular fa-image"></i> View Interface
+        </button>
+        <a href="https://www.figma.com/design/n82Rx8v9DRVi3UT57FSC6l/Wedding-Planner?node-id=90-118&t=y6ud68If1HqCfhZd-1" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project-row" data-proj-anim>
+    <div class="proj-img-panel">
+      <img src="./image02.jpeg" alt="Real Estate Landing Page">
+      <span class="proj-num-badge">02 / 05</span>
+      <span class="proj-cat-badge">Real Estate · Web Design</span>
+    </div>
+    <div class="proj-content-panel">
+      <span class="proj-year">2025</span>
+      <h3>Real Estate Landing Page</h3>
+      <p>A bold, high-impact landing page for premium UK apartments. Yellow accent typography paired with dramatic property photography to drive conversions.</p>
+      <div class="proj-tags">
+        <span class="proj-tag-chip">Landing Page</span>
+        <span class="proj-tag-chip">Web Design</span>
+        <span class="proj-tag-chip">Design System</span>
+        <span class="proj-tag-chip">Figma</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-action-btn btn-view-ui btn-show-ui"
+          data-name="Real Estate Landing Page"
+          data-image="./Home2.jpg">
+          <i class="fa-regular fa-image"></i> View Interface
+        </button>
+        <a href="https://www.figma.com/design/n7mkCvt5fWcpw8KTKD6tHk/Apartment-UI?node-id=1-2&t=UMKHHv5wbZ36YOPL-1" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 3 -->
+  <div class="project-row" data-proj-anim>
+    <div class="proj-img-panel">
+      <img src="./image03.jpeg" alt="SRMedia UI">
+      <span class="proj-num-badge">03 / 05</span>
+      <span class="proj-cat-badge">Tech · Web Design</span>
+    </div>
+    <div class="proj-content-panel">
+      <span class="proj-year">2025</span>
+      <h3>SRMedia — SEO Learning Platform</h3>
+      <p>A structured online learning platform for digital careers. Designed with a deep navy UI, focused on clarity and course discoverability for beginner to professional learners.</p>
+      <div class="proj-tags">
+        <span class="proj-tag-chip">UI Design</span>
+        <span class="proj-tag-chip">Web</span>
+        <span class="proj-tag-chip">Figma</span>
+        <span class="proj-tag-chip">Dark Theme</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-action-btn btn-view-ui btn-show-ui"
+          data-name="SRMedia — SEO Learning Platform"
+          data-image="./Home3.jpg">
+          <i class="fa-regular fa-image"></i> View Interface
+        </button>
+        <a href="https://www.figma.com/design/OoTkgY0kRDElPezmG4tuhd/Teach-SEO?node-id=2-2&t=kmHDerAEUWKCBChZ-1" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 4 -->
+  <div class="project-row" data-proj-anim>
+    <div class="proj-img-panel">
+      <img src="./image04.jpeg" alt="Fascination UI">
+      <span class="proj-num-badge">04 / 05</span>
+      <span class="proj-cat-badge">Perfume · WebApp</span>
+    </div>
+    <div class="proj-content-panel">
+      <span class="proj-year">2026</span>
+      <h3>Fascination — Luxury Fragrance Store</h3>
+      <p>A premium dark-mode e-commerce experience for a luxury fragrance brand. Gold accents and atmospheric product photography create an immersive, high-end feel.</p>
+      <div class="proj-tags">
+        <span class="proj-tag-chip">E-commerce</span>
+        <span class="proj-tag-chip">Dark UI</span>
+        <span class="proj-tag-chip">UX Research</span>
+        <span class="proj-tag-chip">Luxury</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-action-btn btn-view-ui btn-show-ui"
+          data-name="Fascination — Luxury Fragrance Store"
+          data-image="./Home4.jpg">
+          <i class="fa-regular fa-image"></i> View Interface
+        </button>
+        <a href="https://www.figma.com/design/2kGiqyN6I8clvR6ZrBaSrq/Fascination-hub-Perfume?node-id=1-2&t=d2GHYH08WHGrxsEw-1" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 5 -->
+  <div class="project-row" data-proj-anim>
+    <div class="proj-img-panel">
+      <img src="./image05.jpeg" alt="HVA Lanka UI">
+      <span class="proj-num-badge">05 / 05</span>
+      <span class="proj-cat-badge">Branding · Web</span>
+    </div>
+    <div class="proj-content-panel">
+      <span class="proj-year">2025</span>
+      <h3>HVA Lanka — Ceylon Tea Brand</h3>
+      <p>A modern, responsive website for a traditional Ceylon tea brand, emphasizing quality and heritage with a clean, elegant design.</p>
+      <div class="proj-tags">
+        <span class="proj-tag-chip">Web Design</span>
+        <span class="proj-tag-chip">Responsive</span>
+        <span class="proj-tag-chip">Branding</span>
+        <span class="proj-tag-chip">Figma</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-action-btn btn-view-ui btn-show-ui"
+          data-name="HVA Lanka — Ceylon Tea Brand"
+          data-image="./Home5.jpg">
+          <i class="fa-regular fa-image"></i> View Interface
+        </button>
+        <a href="https://www.figma.com/design/KxiYe0UiASHhxZbTieMD0h/HVA-Lanka-Exports?node-id=37-39&t=mYiAKNFHO1Qn3UlA-1" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── BEHANCE ARCHIVES ── -->
+<section id="behance" class="behance-section">
+  <h2 class="section-title">BEHANCE <span class="highlight">ARCHIVES</span></h2>
+</section>
+<div class="project-stack" style="padding-top:0">
+
+  <div class="project-wrapper">
+    <div class="project-card">
+      <img src="./behance1.jpeg" class="project-img" alt="CryptoX Archive App">
+      <div class="project-meta">
+        <div class="project-meta-text">
+          <span>2024 · Mobile App</span>
+          <h3>CryptoX — Online Trading Platform</h3>
+        </div>
+        <a href="https://www.behance.net/gallery/217015277/Cryptox-A-Modern-Cryptocurrency-Wallet-App" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-wrapper">
+    <div class="project-card">
+      <img src="./behance2.jpeg" class="project-img" alt="Aiden Bike Design">
+      <div class="project-meta">
+        <div class="project-meta-text">
+          <span>2024 · Web App</span>
+          <h3>Aiden — Bike Selling Platform</h3>
+        </div>
+        <a href="https://www.behance.net/gallery/215858217/Aiden-Mountain-Bikes-Selling-Platform" target="_blank" class="proj-action-btn btn-view-project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── PROCESS ── -->
+<section id="process" class="process-section">
+  <div class="process-container">
+    <div class="process-sticky">
+      <h2>HOW THE<br>PROCESS <span class="highlight">WORKS</span></h2>
+    </div>
+    <div class="process-list">
+      <div class="process-card" data-process><span class="process-num">01</span><h4>Requirement Gathering</h4><p>Understanding client needs, goals, and constraints through structured discovery sessions.</p></div>
+      <div class="process-card" data-process><span class="process-num">02</span><h4>Wireframing</h4><p>Creating low-fidelity layouts that define structure, hierarchy, and user flow.</p></div>
+      <div class="process-card" data-process><span class="process-num">03</span><h4>High Fidelity</h4><p>Designing polished, detailed visual interfaces with a refined design system.</p></div>
+      <div class="process-card" data-process><span class="process-num">04</span><h4>Prototyping</h4><p>Building interactive models to test and validate real user scenarios.</p></div>
+      <div class="process-card" data-process><span class="process-num">05</span><h4>Review &amp; Handoff</h4><p>Iterating on feedback, refining details, and delivering developer-ready assets.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONNECT ── -->
+<section class="connect-section">
+  <span class="tag-pill" style="margin-bottom:24px;display:inline-block">Get in Touch</span>
+  <h2>LET'S <span class="highlight">CONNECT</span></h2>
+  <div class="social-row">
+    <a href="https://www.linkedin.com/in/YOUR_USERNAME" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    <a href="https://www.behance.net/chenurasilva" target="_blank" class="social-btn"><i class="fa-brands fa-behance"></i> Behance</a>
+    <a href="https://instagram.com/YOUR_USERNAME" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    <a href="mailto:chenura55@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i> Email</a>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="contact-left">
+    <h2>HAVE AN<br><span class="highlight">IDEA?</span></h2>
+  </div>
+  <div class="contact-right">
+    <p>Let's build something extraordinary together.</p>
+    <button class="action-btn primary-btn" id="contactBtn">
+      Contact Us <i class="fa-solid fa-plus" id="btnIcon"></i>
+    </button>
+    <div class="contact-tray" id="contactTray">
+      <a href="mailto:chenura55@gmail.com" class="tray-item">Email Me <i class="fa-solid fa-envelope"></i></a>
+      <a href="https://wa.me/94760679872" target="_blank" class="tray-item">WhatsApp <i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Chenura De Silva · UI/UX Portfolio · Sri Lanka</footer>
+
+<!-- ── FULL SCREEN IMAGE MODAL ── -->
+<div class="modal-overlay" id="imgModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-project-name" id="modalProjectName">Project</span>
+      <button class="modal-close" id="closeImg">×</button>
+    </div>
+    <!-- This container is now scrollable -->
+    <div class="single-img-area" id="modalScrollArea">
+      <img id="modalTargetImg" src="" alt="Design Presentation Interface Layout">
+    </div>
+  </div>
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── Contact tray ── */
+  const contactBtn = document.getElementById('contactBtn');
+  const tray       = document.getElementById('contactTray');
+  const icon       = document.getElementById('btnIcon');
+  if(contactBtn) {
+    contactBtn.addEventListener('click', () => {
+      tray.classList.toggle('open');
+      gsap.to(icon, { rotation: tray.classList.contains('open') ? 45 : 0, duration: .3 });
+    });
+  }
+
+  /* ── Stacked archive cards ── */
+  gsap.utils.toArray('.project-wrapper').forEach((w, i, arr) => {
+    if (i < arr.length - 1) {
+      gsap.to(w.querySelector('.project-card'), {
+        scale: .92, opacity: .4,
+        scrollTrigger: { trigger: w, start: "top top", end: "bottom top", scrub: true }
+      });
+    }
+  });
+
+  /* ── Process cards ── */
+  gsap.utils.toArray('[data-process]').forEach(card => {
+    gsap.to(card, {
+      scrollTrigger: { trigger: card, start: "top 85%", end: "top 45%", scrub: true },
+      opacity: 1, scale: 1, y: 0,
+      backgroundColor: "rgba(230,57,0,0.03)",
+      borderColor: "rgba(230,57,0,0.3)"
+    });
+  });
+
+  /* ── Project rows entrance ── */
+  gsap.utils.toArray('[data-proj-anim]').forEach((row, i) => {
+    gsap.from(row, {
+      y: 60, opacity: 0, duration: .8,
+      scrollTrigger: { trigger: row, start: "top 88%" },
+      ease: "power3.out"
+    });
+  });
+
+  /* ── Full Screen Scrollable Modal Logic ── */
+  const modal       = document.getElementById('imgModal');
+  const modalImg    = document.getElementById('modalTargetImg');
+  const nameEl      = document.getElementById('modalProjectName');
+  const scrollArea  = document.getElementById('modalScrollArea');
+
+  function openModal(imgSrc, name) {
+    nameEl.textContent = name;
+    modalImg.src = imgSrc;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // Prevent main page scrolling
+    if(scrollArea) scrollArea.scrollTop = 0; // Reset scroll position to top
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = ''; // Re-enable main page scrolling
+    // Short delay to clean src so it doesn't 'flash' next time
+    setTimeout(() => { if(!modal.classList.contains('open')) modalImg.src = ''; }, 300);
+  }
+
+  document.getElementById('closeImg').onclick = closeModal;
+  
+  // Close only if clicking the background, not the image itself
+  modal.addEventListener('click', e => {
+    if (e.target === scrollArea) { 
+      closeModal(); 
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (modal.classList.contains('open') && e.key === 'Escape') { 
+      closeModal(); 
+    }
+  });
+
+  // Attach event listeners to all 'View Interface' buttons
+  document.querySelectorAll('.btn-show-ui').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const imageSrc = btn.dataset.image;
+      const name     = btn.dataset.name || 'Project';
+      openModal(imageSrc, name);
+    });
+  });
+</script>
+</body>
+</html>
